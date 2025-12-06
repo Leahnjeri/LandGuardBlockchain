@@ -1,137 +1,164 @@
-Land Verification & Ownership Transfer System (React + FastAPI + PostgreSQL)
+Blockchain-Based Land Verification & Transfer System
 
-A full-stack web system for verifying land ownership, managing properties, and transferring land ownership securely.
-Built with React (frontend), FastAPI (backend), PostgreSQL, TailwindCSS, JWT Authentication, and CesiumJS for geospatial rendering.
+A secure, transparent, and decentralized platform for verifying land ownership and transferring property using blockchain technology.
+
+📌 Project Overview
+
+This system solves the common challenges in land administration such as fraud, double ownership, and lost records.
+By integrating blockchain (Ethereum) with a modern web platform, the system ensures that all land ownership data is immutable, verifiable, and securely stored.
+
+Users can:
+✔ Create accounts (Sign Up / Log In)
+✔ View lands they own
+✔ Transfer land ownership
+✔ Verify land authenticity using blockchain
+✔ Track transaction history transparently
 
 🚀 Features
+🔐 User Authentication
 
-🔐 User Authentication (JWT)
+Secure Sign Up & Log In
 
-📍 Add & manage land properties
+Password hashing
 
-🛰 View land boundaries using CesiumJS (3D globe)
+Validation & protected API routes
 
-🔁 Transfer ownership to another registered user
+🧾 Land Management
 
-📄 Upload land documents (title deed, ID, etc.)
+Add land parcels
 
-🌍 Automatic location extraction from coordinates
+View list of lands owned (location, size, and status)
 
-📬 Email notifications (optional)
+Search & filter land records
 
-🗄 PostgreSQL database with migrations
+🔁 Ownership Transfer
 
-⚡ FastAPI backend with REST API routes
+Initiate ownership transfer
 
-🛠 Technologies Used
+Receiver verification
+
+Smart contract interaction (Ethereum) — to be implemented
+
+✔ Land Verification
+
+Blockchain-based validation of land records
+
+Prevents tampering & fraud
+
+📊 Dashboard
+
+Displays:
+
+Land parcels owned
+
+Parcel details
+
+Status (verified / pending)
+
+Suggested extra column: Land ID / Parcel Number
+
+🏗 System Architecture
+Frontend (React + Tailwind)
+        |
+Backend API (Node.js + Express)
+        |
+Database (PostgreSQL)
+        |
+Blockchain Layer (Ethereum Smart Contract) — pending
+
+🛠 Tech Stack
 Frontend
 
-React (Vite)
+React.js
 
-TailwindCSS
+Tailwind CSS
 
-CesiumJS
+React Router
 
-JWT-based auth
+Axios
 
 Backend
 
-FastAPI
+Node.js
+
+Express.js
+
+JWT Authentication
+
+bcrypt (password hashing)
+
+Database
 
 PostgreSQL
 
-SQLAlchemy
+Prisma / Sequelize / Knex (any ORM you choose)
 
-Alembic migrations
+Blockchain (Upcoming)
 
-Python
+Ethereum
 
-⚡ Quick Start — Frontend (React)
-Windows / macOS / Linux
-# Navigate to project folder
-cd landchain_frontend
+Solidity Smart Contracts
 
-# Install dependencies
+Web3.js / Ethers.js
+
+⚙️ Installation & Setup
+1️⃣ Clone the project
+git clone https://github.com/your-username/land-verification-system.git
+cd land-verification-system
+
+2️⃣ Backend Setup
+cd backend
 npm install
 
-# Create environment file
-cp .env.example .env
+Environment variables (.env)
+PORT=5000
+DATABASE_URL=postgresql://username:password@localhost:5432/landdb
+JWT_SECRET=your-secret-key
 
-# Start server
+Run backend
+npm start
+
+3️⃣ Frontend Setup
+cd frontend
+npm install
 npm run dev
 
-
-Frontend runs on:
-
-👉 http://localhost:5173/
-
-⚡ Quick Start — Backend (FastAPI)
-Windows
-py -3.11 -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
-copy .env.example .env
-# Update database credentials in .env
-alembic upgrade head
-uvicorn app.main:app --reload
-
-macOS / Linux
-python3.11 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-# Update database credentials in .env
-alembic upgrade head
-uvicorn app.main:app --reload
+📡 API Endpoints (Basic)
+POST /api/auth/signup
+POST /api/auth/login
+GET  /api/lands
+POST /api/lands/add
+POST /api/lands/transfer
 
 
-Backend docs open at:
+More will be added as the blockchain module is implemented.
 
-👉 http://127.0.0.1:8000/docs
+🧱 Smart Contract (Planned)
 
-🗂 Project Structure
-Frontend
-src/
- ├── pages/
- ├── components/
- ├── api/
- ├── hooks/
- └── styles/
+Smart contract will handle:
 
-Backend
-app/
- ├── routers/       # API routes
- ├── models/        # Database models
- ├── schemas/       # Pydantic schemas
- ├── services/      # Business logic
- ├── core/          # Settings, auth
- └── database.py
+Registering land on blockchain
 
-🔌 Environment Variables
-Frontend .env
-VITE_API_URL=http://127.0.0.1:8000
-VITE_CESIUM_TOKEN=your_token_here
+Verifying ownership
 
-Backend .env
-DATABASE_URL=postgresql+asyncpg://user:password@localhost:5432/landchain
-JWT_SECRET=your_secret
+Transferring ownership
 
-📦 Run PostgreSQL (Optional Using Docker)
-docker run --name landchain-db -e POSTGRES_PASSWORD=1234 -p 5432:5432 -d postgres
+Storing hashes of land records for immutability
 
-📚 API Documentation
+📌 Future Improvements
 
-FastAPI Swagger UI:
-👉 http://127.0.0.1:8000/docs
+Full Solidity smart contract completion
 
-🧪 Testing
-pytest
+Real-time notifications
 
-🙌 Contributing
+GIS Map integration (land boundaries on a map)
 
-Pull requests are welcome!
-Please ensure code is clean and documented.
+Admin Panel for verification
 
-📄 License
+QR Code for land verification
 
-MIT License.
+IPFS storage for documents
+
+👤 Author
+
+Kaburu Leah
