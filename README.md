@@ -1,148 +1,137 @@
-Land Verification & Ownership Transfer System
+Land Verification & Ownership Transfer System (React + FastAPI + PostgreSQL)
 
-A web-based system for verifying land ownership, managing properties, and transferring ownership securely. The platform enables users to register land, access verification data, view property details, transfer ownership, and interact with geospatial data.
+A full-stack web system for verifying land ownership, managing properties, and transferring land ownership securely.
+Built with React (frontend), FastAPI (backend), PostgreSQL, TailwindCSS, JWT Authentication, and CesiumJS for geospatial rendering.
 
 🚀 Features
-🔍 Land Verification
 
-Verify land ownership using title numbers
+🔐 User Authentication (JWT)
 
-View owner information, property details, and boundary coordinates
+📍 Add & manage land properties
 
-CesiumJS-powered geographic visualization
+🛰 View land boundaries using CesiumJS (3D globe)
 
-📄 Property Management
+🔁 Transfer ownership to another registered user
 
-View all owned properties
+📄 Upload land documents (title deed, ID, etc.)
 
-Automatic geolocation lookups (Latitude/Longitude → Real-world address)
+🌍 Automatic location extraction from coordinates
 
-Track verification status, size, and metadata
+📬 Email notifications (optional)
 
-🔗 Ownership Transfer
+🗄 PostgreSQL database with migrations
 
-Secure land transfer to new owners
+⚡ FastAPI backend with REST API routes
 
-Email-based recipient identification
-
-Backend validation and audit logs
-
-🗺 Geospatial Support
-
-3D land visualization with CesiumJS
-
-Automatic mock boundary generation
-
-Coordinates stored in PostgreSQL
-
-🔐 Secure Authentication
-
-Login/Signup using JWT
-
-Protected API routes
-
-Role-based access (Owner, Admin in future versions)
-
-🛠 Tech Stack
+🛠 Technologies Used
 Frontend
 
-React
+React (Vite)
 
 TailwindCSS
 
 CesiumJS
 
-Fetch API / REST
+JWT-based auth
 
 Backend
 
-FastAPI (Python)
+FastAPI
 
 PostgreSQL
 
 SQLAlchemy
 
-JWT Authentication
+Alembic migrations
 
-📂 Project Structure (Simplified)
-project/
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   └── styles/
-│   └── package.json
-│
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   │   └── routes/
-│   │   ├── models/
-│   │   ├── schemas/
-│   │   ├── crud/
-│   │   └── db/
-│   └── main.py
-│
-└── README.md
+Python
 
-⚙️ Installation & Setup
-1. Clone the Repository
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+⚡ Quick Start — Frontend (React)
+Windows / macOS / Linux
+# Navigate to project folder
+cd landchain_frontend
 
-🖥 Frontend Setup (React)
-cd frontend
+# Install dependencies
 npm install
+
+# Create environment file
+cp .env.example .env
+
+# Start server
 npm run dev
 
-🐍 Backend Setup (FastAPI)
-Create virtual environment
-python -m venv venv
-source venv/bin/activate  # Mac/Linux
-venv\Scripts\activate     # Windows
 
-Install dependencies
+Frontend runs on:
+
+👉 http://localhost:5173/
+
+⚡ Quick Start — Backend (FastAPI)
+Windows
+py -3.11 -m venv .venv
+.\.venv\Scripts\activate
 pip install -r requirements.txt
-
-Run FastAPI
+copy .env.example .env
+# Update database credentials in .env
+alembic upgrade head
 uvicorn app.main:app --reload
 
-🗄 Database (PostgreSQL)
-Create database manually or via CLI:
-CREATE DATABASE land_system;
+macOS / Linux
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+# Update database credentials in .env
+alembic upgrade head
+uvicorn app.main:app --reload
 
 
-Environment variables (example):
+Backend docs open at:
 
-DATABASE_URL=postgresql+asyncpg://user:password@localhost/land_system
-SECRET_KEY=your_jwt_secret
+👉 http://127.0.0.1:8000/docs
 
-🔐 Authentication Flow
+🗂 Project Structure
+Frontend
+src/
+ ├── pages/
+ ├── components/
+ ├── api/
+ ├── hooks/
+ └── styles/
 
-User signs up / logs in
+Backend
+app/
+ ├── routers/       # API routes
+ ├── models/        # Database models
+ ├── schemas/       # Pydantic schemas
+ ├── services/      # Business logic
+ ├── core/          # Settings, auth
+ └── database.py
 
-Backend issues a JWT
+🔌 Environment Variables
+Frontend .env
+VITE_API_URL=http://127.0.0.1:8000
+VITE_CESIUM_TOKEN=your_token_here
 
-React stores token in localStorage
+Backend .env
+DATABASE_URL=postgresql+asyncpg://user:password@localhost:5432/landchain
+JWT_SECRET=your_secret
 
-Protected API endpoints require the token
+📦 Run PostgreSQL (Optional Using Docker)
+docker run --name landchain-db -e POSTGRES_PASSWORD=1234 -p 5432:5432 -d postgres
 
-📌 API Endpoints (Important)
-🔸 Verify land
-GET /lands/verify/{title_number}
+📚 API Documentation
 
-🔸 Get current user's lands
-GET /lands/my-lands
+FastAPI Swagger UI:
+👉 http://127.0.0.1:8000/docs
 
-🔸 Transfer ownership
-POST /lands/transfer
+🧪 Testing
+pytest
 
-📜 License
+🙌 Contributing
 
-This project is licensed under the MIT License — you may modify and distribute freely.
+Pull requests are welcome!
+Please ensure code is clean and documented.
 
-🙌 Author
+📄 License
 
-Leah Kaburu
-Land Verification & Ownership Transfer System
+MIT License.
