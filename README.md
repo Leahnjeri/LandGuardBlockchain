@@ -1,7 +1,7 @@
-# 🌍 Land Verification System
+#  Land Verification System
 
-Quick starter for the **Land Verification System** backend (Node.js + PostgreSQL + Ethereum planned).  
-This project includes minimal files for sign-up, login (JWT), land storage, and land ownership transfer.
+Quick starter for the **Land Verification System** backend (Python + PostgreSQL + Ethereum planned).  
+This project includes minimal files for sign-up, login (JWT), land storage, land search and land ownership transfer.
 
 ---
 
@@ -31,11 +31,11 @@ npm start
 
 ```
 backend/
-│── src/
-│   ├── routes/
-│   ├── controllers/
-│   ├── middleware/
-│   └── models/
+│── app/
+│   ├── api/routes/
+│   ├── crud/
+│   ├── models/
+│   └── schemas/
 frontend/
 │── src/
 │   ├── pages/
@@ -58,14 +58,14 @@ frontend/
 ## 🔧 Tech Stack
 
 ### Backend
-- Node.js  
-- Express.js  
+- Python    
 - JWT Authentication  
 - PostgreSQL  
 
 ### Frontend
 - React  
-- Tailwind CSS  
+- Tailwind CSS
+- javascript 
 
 ### Blockchain (Coming Soon)
 - Ethereum  
