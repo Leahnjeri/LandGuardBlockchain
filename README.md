@@ -1,164 +1,131 @@
-Blockchain-Based Land Verification & Transfer System
+# 🌍 Land Verification System
 
-A secure, transparent, and decentralized platform for verifying land ownership and transferring property using blockchain technology.
+Quick starter for the **Land Verification System** backend (Node.js + PostgreSQL + Ethereum planned).  
+This project includes minimal files for sign-up, login (JWT), land storage, and land ownership transfer.
 
-📌 Project Overview
+---
 
-This system solves the common challenges in land administration such as fraud, double ownership, and lost records.
-By integrating blockchain (Ethereum) with a modern web platform, the system ensures that all land ownership data is immutable, verifiable, and securely stored.
+## 🚀 Quick Start (Windows)
 
-Users can:
-✔ Create accounts (Sign Up / Log In)
-✔ View lands they own
-✔ Transfer land ownership
-✔ Verify land authenticity using blockchain
-✔ Track transaction history transparently
-
-🚀 Features
-🔐 User Authentication
-
-Secure Sign Up & Log In
-
-Password hashing
-
-Validation & protected API routes
-
-🧾 Land Management
-
-Add land parcels
-
-View list of lands owned (location, size, and status)
-
-Search & filter land records
-
-🔁 Ownership Transfer
-
-Initiate ownership transfer
-
-Receiver verification
-
-Smart contract interaction (Ethereum) — to be implemented
-
-✔ Land Verification
-
-Blockchain-based validation of land records
-
-Prevents tampering & fraud
-
-📊 Dashboard
-
-Displays:
-
-Land parcels owned
-
-Parcel details
-
-Status (verified / pending)
-
-Suggested extra column: Land ID / Parcel Number
-
-🏗 System Architecture
-Frontend (React + Tailwind)
-        |
-Backend API (Node.js + Express)
-        |
-Database (PostgreSQL)
-        |
-Blockchain Layer (Ethereum Smart Contract) — pending
-
-🛠 Tech Stack
-Frontend
-
-React.js
-
-Tailwind CSS
-
-React Router
-
-Axios
-
-Backend
-
-Node.js
-
-Express.js
-
-JWT Authentication
-
-bcrypt (password hashing)
-
-Database
-
-PostgreSQL
-
-Prisma / Sequelize / Knex (any ORM you choose)
-
-Blockchain (Upcoming)
-
-Ethereum
-
-Solidity Smart Contracts
-
-Web3.js / Ethers.js
-
-⚙️ Installation & Setup
-1️⃣ Clone the project
-git clone https://github.com/your-username/land-verification-system.git
-cd land-verification-system
-
-2️⃣ Backend Setup
+```bash
 cd backend
 npm install
+copy .env.example .env
+# edit .env to match your database credentials
+npm start
+```
 
-Environment variables (.env)
+## 🐧 Quick Start (macOS / Linux)
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+# edit .env to match your database credentials
+npm start
+```
+
+---
+
+## 📦 Project Structure
+
+```
+backend/
+│── src/
+│   ├── routes/
+│   ├── controllers/
+│   ├── middleware/
+│   └── models/
+frontend/
+│── src/
+│   ├── pages/
+│   ├── components/
+│   └── utils/
+```
+
+---
+
+## 📌 Features
+
+- 🔐 **User authentication** (signup & login)
+- 🏞 **Manage land records** (location, size, land ID)
+- 🔁 **Transfer land ownership**
+- 🗄 **PostgreSQL database**
+- 🔗 **Ethereum smart contract logic (planned)**
+
+---
+
+## 🔧 Tech Stack
+
+### Backend
+- Node.js  
+- Express.js  
+- JWT Authentication  
+- PostgreSQL  
+
+### Frontend
+- React  
+- Tailwind CSS  
+
+### Blockchain (Coming Soon)
+- Ethereum  
+- Solidity  
+- Ethers.js  
+
+---
+
+## 📝 Environment Variables
+
+Create a `.env` file:
+
+```
 PORT=5000
 DATABASE_URL=postgresql://username:password@localhost:5432/landdb
 JWT_SECRET=your-secret-key
+```
 
-Run backend
+---
+
+## ▶ Running the Server
+
+```bash
 npm start
+```
 
-3️⃣ Frontend Setup
-cd frontend
-npm install
-npm run dev
+---
 
-📡 API Endpoints (Basic)
+## 📡 API Endpoints
+
+```
 POST /api/auth/signup
 POST /api/auth/login
 GET  /api/lands
 POST /api/lands/add
 POST /api/lands/transfer
+```
 
+---
 
-More will be added as the blockchain module is implemented.
+## 📄 Documentation
 
-🧱 Smart Contract (Planned)
+Backend Docs (planned):
 
-Smart contract will handle:
+```
+http://localhost:5000/api/docs
+```
 
-Registering land on blockchain
+---
 
-Verifying ownership
+## 🔮 Future Improvements
 
-Transferring ownership
+- Full blockchain integration  
+- Admin verification dashboard  
+- GIS map support  
+- Document storage with IPFS  
+- QR code land verification  
 
-Storing hashes of land records for immutability
+---
 
-📌 Future Improvements
+## 👤 Author
 
-Full Solidity smart contract completion
-
-Real-time notifications
-
-GIS Map integration (land boundaries on a map)
-
-Admin Panel for verification
-
-QR Code for land verification
-
-IPFS storage for documents
-
-👤 Author
-
-Kaburu Leah
+**Kaburu Leah**
