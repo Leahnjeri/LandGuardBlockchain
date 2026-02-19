@@ -36,9 +36,9 @@ body{
 
 /* Container helper */
 .container{
-  max-width:1100px;
-  margin:28px auto;
-  padding:0 16px;
+  max-width:none;
+  margin:0;
+  padding:0;
 }
 
 /* Simple card util */

@@ -1,0 +1,157 @@
+:root{
+  --brand-purple: #6d28d9;   /* violet */
+  --brand-purple2: #7c3aed;
+  --text: #111;
+  --muted: #6b7280;
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --border: #e5e7eb;
+}
+
+/* page background + layout */
+.dash-wrap{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  background: var(--bg);
+}
+
+/* sidebar */
+.dash-sidebar{
+  width: 280px;
+  background: #4e342e; /* your brown */
+  color: white;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dash-brand{
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: white;
+}
+
+.dash-sub{
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.dash-nav{
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dash-link{
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.92);
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dash-link:hover{
+  color: #fbbf24; /* amber hover */
+}
+
+.dash-link.active{
+  color: #fbbf24;
+}
+
+.dash-dot{
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.35);
+}
+
+.dash-link.active .dash-dot{
+  background: #fbbf24;
+}
+
+.dash-spacer{ flex: 1; }
+
+.dash-logout{
+  margin-top: 18px;
+  color: rgba(255,255,255,0.85);
+}
+.dash-logout:hover{
+  color: #fca5a5;
+}
+
+/* main */
+.dash-main{
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* prevents overflow issues */
+}
+
+.dash-topbar{
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 18px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.dash-content{
+  flex: 1;
+  width: 100%;
+  padding: 18px;
+  overflow: auto;
+}
+
+/* cards */
+.dash-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(24,39,75,0.06);
+}
+
+/* purple buttons */
+.btn-purple{
+  background: linear-gradient(135deg, var(--brand-purple), var(--brand-purple2));
+  border: 1px solid rgba(109,40,217,0.35);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-purple:hover{
+  filter: brightness(1.03);
+}
+.btn-purple:active{
+  transform: scale(0.99);
+}
+
+.btn-outline-purple{
+  background: white;
+  border: 1px solid rgba(109,40,217,0.35);
+  color: var(--brand-purple);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-outline-purple:hover{
+  background: rgba(109,40,217,0.06);
+}

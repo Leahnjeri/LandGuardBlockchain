@@ -20,6 +20,8 @@
     "cesium": "^1.135.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.29.0",
+    "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
@@ -27,6 +29,7 @@
     "react-leaflet": "^5.0.0",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^7.9.3",
+    "recharts": "^3.5.1",
     "resium": "^1.19.0-beta.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.13"

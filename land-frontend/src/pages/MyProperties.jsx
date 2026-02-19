@@ -1,47 +1,102 @@
 // MyProperties.jsx
 import React, { useEffect, useState } from "react";
 
-export default function MyProperties() {
+export default function MyProperties({ onOpenMap, onTransfer }) {
   const [lands, setLands] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [loadingLocations, setLoadingLocations] = useState(true);
+  const [error, setError] = useState("");
+
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    let cancelled = false;
+
     const fetchLands = async () => {
+      setLoading(true);
+      setError("");
+
       try {
         const res = await fetch("http://localhost:8000/lands/my-lands", {
           headers: { Authorization: `Bearer ${token}` },
         });
+
+        if (!res.ok) {
+          const msg = await res.text();
+          throw new Error(msg || "Failed to fetch properties");
+        }
+
         const data = await res.json();
+        const baseLands = Array.isArray(data) ? data : [];
+
+        if (cancelled) return;
+        setLands(baseLands);
+        setLoading(false);
+
+        // Fetch locations (reverse geocode)
+        setLoadingLocations(true);
 
         const landsWithLocation = await Promise.all(
-          (Array.isArray(data) ? data : []).map(async (land) => {
+          baseLands.map(async (land) => {
+            // If no coords, skip
+            if (land?.latitude == null || land?.longitude == null) {
+              return { ...land, location: "Unknown" };
+            }
+
             try {
-              const locationRes = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${land.latitude}&lon=${land.longitude}`
-              );
+              const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${land.latitude}&lon=${land.longitude}`;
+
+              // Nominatim prefers a User-Agent header; browsers limit it,
+              // but adding Accept-Language can help, and keeping requests minimal matters.
+              const locationRes = await fetch(url, {
+                headers: {
+                  "Accept-Language": "en",
+                },
+              });
+
+              if (!locationRes.ok) throw new Error("Reverse geocode failed");
+
               const locationData = await locationRes.json();
-              return { ...land, location: locationData.display_name || "Unknown" };
-            } catch (err) {
+              return { ...land, location: locationData?.display_name || "Unknown" };
+            } catch {
               return { ...land, location: "Unknown" };
             }
           })
         );
 
+        if (cancelled) return;
         setLands(landsWithLocation);
         setLoadingLocations(false);
       } catch (err) {
+        if (cancelled) return;
+        setError(err?.message || "Something went wrong");
         setLands([]);
+        setLoading(false);
         setLoadingLocations(false);
       }
     };
 
-    fetchLands();
+    if (token) fetchLands();
+    else {
+      setError("No token found. Please log in again.");
+      setLoading(false);
+      setLoadingLocations(false);
+    }
+
+    return () => {
+      cancelled = true;
+    };
   }, [token]);
 
   return (
     <div className="bg-white shadow-md rounded-xl p-6">
       <h2 className="text-2xl font-bold text-[#4e342e] mb-4">My Properties</h2>
+
+      {error && (
+        <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {error}
+        </div>
+      )}
 
       <div className="overflow-x-auto">
         <table className="min-w-full border border-gray-200">
@@ -50,16 +105,22 @@ export default function MyProperties() {
               <th className="py-2 px-4 border-b">#</th>
               <th className="py-2 px-4 border-b">Title Number</th>
               <th className="py-2 px-4 border-b">Size (acres)</th>
-              <th className="py-2 px-4 border-b">Verification Status</th>
               <th className="py-2 px-4 border-b">Created At</th>
               <th className="py-2 px-4 border-b">Location</th>
               <th className="py-2 px-4 border-b">Actions</th>
             </tr>
           </thead>
+
           <tbody>
-            {lands.length === 0 ? (
+            {loading ? (
               <tr>
-                <td colSpan="7" className="text-center py-6 text-gray-500">
+                <td colSpan={6} className="text-center py-6 text-gray-500">
+                  Loading properties...
+                </td>
+              </tr>
+            ) : lands.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="text-center py-6 text-gray-500">
                   No properties to display
                 </td>
               </tr>
@@ -69,32 +130,35 @@ export default function MyProperties() {
                   <td className="py-2 px-4 border-b">{index + 1}</td>
                   <td className="py-2 px-4 border-b">{land.title_number}</td>
                   <td className="py-2 px-4 border-b">{land.size}</td>
+
                   <td className="py-2 px-4 border-b">
-                    <span
-                      className={`px-2 py-1 rounded-full text-white text-sm ${
-                        land.verification_status === "Verified"
-                          ? "bg-green-500"
-                          : land.verification_status === "Pending"
-                          ? "bg-yellow-500"
-                          : "bg-red-500"
-                      }`}
-                    >
-                      {land.verification_status}
-                    </span>
+                    {land.created_at
+                      ? new Date(land.created_at).toLocaleDateString()
+                      : "—"}
                   </td>
+
                   <td className="py-2 px-4 border-b">
-                    {new Date(land.created_at).toLocaleDateString()}
+                    {loadingLocations ? "Loading..." : land.location || "Unknown"}
                   </td>
+
                   <td className="py-2 px-4 border-b">
-                    {loadingLocations ? "Loading..." : land.location}
-                  </td>
-                  <td className="py-2 px-4 border-b flex gap-2">
-                    <button className="bg-blue-500 text-white px-2 py-1 rounded text-sm hover:bg-blue-600">
-                      View on Map
-                    </button>
-                    <button className="bg-purple-500 text-white px-2 py-1 rounded text-sm hover:bg-purple-600">
-                      Transfer
-                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => onOpenMap?.(land)}
+                        className="bg-blue-500 text-white px-2 py-1 rounded text-sm hover:bg-blue-600"
+                      >
+                        View on Map
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => onTransfer?.(land)}
+                        className="bg-purple-500 text-white px-2 py-1 rounded text-sm hover:bg-purple-600"
+                      >
+                        Transfer
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))
